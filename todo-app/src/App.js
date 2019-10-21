@@ -23,6 +23,10 @@ function App() {
     if (e.key === 'Enter') {
       createTodoAtIndex(e, i);
     }
+    if (e.key === 'BackSpace' && todos[i].content === '') {
+      e.preventDefault();
+      return removeTodoAtIndex(i);
+    }
   }
 
   function createTodoAtIndex(e, i) {
@@ -43,6 +47,14 @@ function App() {
     setTodos(newTodos);
   }
 
+  function removeTodoAtIndex(i) {
+    if ( i === 0 && todos.length === 1) return;
+    setTodos(todos => todos.slice(0, i).concat(todos.slice(i + 1, todos.length)));
+    setTimeout(() => {
+      document.forms[0].elements[i - 1].focus();
+    }, 0);
+  }
+
   return (
     <div className="app">
       <div className="header">
@@ -57,6 +69,7 @@ function App() {
                 type="text"
                 value={todo.content}
                 onKeyDown={e => handleKeyDown(e, i)}
+                onChange={e => updateTodoAtIndex(e, i)}
               />
             </div>
           ))}
