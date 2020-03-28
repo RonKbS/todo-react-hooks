@@ -23,7 +23,7 @@ function App() {
     if (e.key === 'Enter') {
       createTodoAtIndex(e, i);
     }
-    if (e.key === 'BackSpace' && todos[i].content === '') {
+    if (e.key === 'Backspace' && todos[i].content === '') {
       e.preventDefault();
       return removeTodoAtIndex(i);
     }
@@ -73,7 +73,7 @@ function App() {
       <form className="todo-list">
         <ul>
           {todos.map((todo, i) =>(
-            <div className={`todo ${todo.isCompleted} && 'todo-is-completed'`}>
+            <div className={`todo ${todo.isCompleted && 'todo-is-completed'}`}>
               <div className={'checkbox'} onClick={() => toggleTodoCompleteAtIndex(i)}>
                 {todo.isCompleted && (
                   <span>&#x2714;</span>
